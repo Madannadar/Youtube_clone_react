@@ -1,0 +1,16 @@
+.play-container{
+    background: wheat;
+    /* background-color: black; */
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+@media(max-width:900px){
+    .play-container{
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+}
