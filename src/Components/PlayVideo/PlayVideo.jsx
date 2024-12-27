@@ -55,13 +55,13 @@ const PlayVideo = ({}) => {
   return (
     <div className='play-video'>
         {/* <video src={video1} controls autoPlay muted></video> */}
-        <iframe
-    src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-    referrerPolicy="strict-origin-when-cross-origin"
-    allowFullScreen
-></iframe>
+        <iframe  // embedded code of youtube video
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+        ></iframe>
         <h3>{apiData?apiData.snippet.title:"Title here"}</h3>
         <div className="play-video-info">
             <p>{apiData?value_Converter(apiData.statistics.viewCount):"16k"} views &bull; {apiData?moment(apiData.snippet.publishedAt).fromNow():""} </p> 

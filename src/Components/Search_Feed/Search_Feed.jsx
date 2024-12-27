@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import './Feed.css'
+import './Search_Feed.css'
 import { Link } from 'react-router-dom'
 import { API_KEY, value_Converter } from '../../data'
 import moment from 'moment'
 
-const Feed = ({category}) => {
+const Search_Feed = ({category}) => {
 
     const [data,setData] = useState([]);
 
@@ -36,4 +36,4 @@ const Feed = ({category}) => {
   )
 }
 
-export default Feed
+export default Search_Feed
