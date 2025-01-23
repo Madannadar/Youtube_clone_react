@@ -1,39 +1,59 @@
-import React, { useEffect, useState } from 'react'
-import './Search_Feed.css'
-import { Link } from 'react-router-dom'
-import { API_KEY, value_Converter } from '../../data'
-import moment from 'moment'
+import React, { useEffect, useState } from "react";
+import "./Search_Feed.css";
+import { Link, useNavigate } from "react-router-dom";
+import { API_KEY, value_Converter } from "../../data";
+import moment from "moment";
 
-const Search_Feed = ({category}) => {
+const Search_Feed = ({ searchQuery }) => {
+  const [data, setData] = useState([]);
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
-    const [data,setData] = useState([]);
-
-    const fetchData = async () => {
-        const videList_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`
-        await fetch(videList_url).then(response=>response.json()).then(data => setData(data.items))
+  const fetchSearchResults = async () => {
+    try {
+      const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&key=${API_KEY}`;
+      const response = await fetch(searchUrl);
+      const result = await response.json();
+      setData(result.items || []);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
     }
+  };
 
-    useEffect(() => {
-        fetchData();
-    },[category])
+  useEffect(() => {
+    console.log("Search Query in Search_Feed:", searchQuery);
+    if (searchQuery) {
+      fetchSearchResults();
+    } else {
+      navigate("/"); // Redirect to home if searchQuery is empty
+    }
+  }, [searchQuery, navigate]);
 
   return (
     <div className="feed">
-        {data.map((item, index) => {
-            return(
-            <Link to={`Video/${item.snippet.categoryId}/${item.id}`} className='card'>
-            <img src={item.snippet.thumbnails.medium.url} alt="" />
+      {data.map((item) => {
+        const videoId = item.id.videoId; // Video ID for the search result
+        if (!videoId) return null;
+        else{
+            console.log("Video ID:", item.id.videoId);
+        }
+        return (
+          <Link
+            key={`${videoId}-${item.snippet.title}`} // Unique key for each result
+            to={`Video/${item.snippet.channelId}/${videoId}`}
+            className="card"
+          >
+            <img
+              src={item.snippet.thumbnails.medium.url}
+              alt={item.snippet.title}
+            />
             <h2>{item.snippet.title}</h2>
             <h3>{item.snippet.channelTitle}</h3>
-            <p>{value_Converter(item.statistics.viewCount)} views &bull; {moment(item.snippet.publishedAt).fromNow()} </p> 
-            {/* moment is the package  we insatlled that converts date from now we have mensioned*/}
-        </Link>
-            )
-        })}
-        
+            <p>{moment(item.snippet.publishedAt).fromNow()}</p>
+          </Link>
+        );
+      })}
     </div>
-    
-  )
-}
+  );
+};
 
-export default Search_Feed
+export default Search_Feed;
