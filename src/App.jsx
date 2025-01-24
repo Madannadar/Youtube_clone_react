@@ -15,6 +15,10 @@ const App = () => {
         <Route path="/" element={<Home sidebar={sidebar} />} />
         <Route path="/video/:categoryId/:videoId" element={<Video />} />
         <Route path="/search/:query" element={<Search />} />
+        <Route
+          path="/search/:query/video/:categoryId/:videoId"
+          element={<Video />}
+        />
       </Routes>
     </div>
   );
