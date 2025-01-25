@@ -33,9 +33,9 @@ const Search_Feed = ({ searchQuery }) => {
       {data.map((item) => {
         const videoId = item.id.videoId; // Video ID for the search result
         if (!videoId) return null;
-        else{
-            console.log("Video ID:", item.id.videoId);
-        }
+        // else{
+        //     console.log("Video ID:", item.id.videoId);
+        // }
         return (
           <Link
             key={`${videoId}-${item.snippet.title}`} // Unique key for each result

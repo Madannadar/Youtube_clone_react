@@ -12,9 +12,9 @@ const Video = () => {
   return (
     <div className='play-container'>
       <PlayVideo videoId={videoId}/>
-      {!isSearchPage && <div className="recommended-section">
+      {/* {!isSearchPage && <div className="recommended-section">
         <Recommended categoryId={categoryId}/>
-      </div>}
+      </div>} */}
     </div>
   )
 }
