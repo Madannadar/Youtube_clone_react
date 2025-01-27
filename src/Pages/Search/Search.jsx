@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Search_Feed from "../../Components/Search_Feed/Search_Feed";
 import Sidebar from "../../Components/Sidebar/Sidebar";
-import "./search.css";
+import "./Search.css";
 
 const Search = ({ sidebar }) => {
   const [category, setCategory] = useState(0);
